@@ -12,7 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url("../assets/images/dustBG.jpg") no-repeat;
+  background: url("../assets/images/indaloBG.jpeg") no-repeat;
   /* background-color: black; */
   color: white;
   background-size: cover;
@@ -130,38 +130,116 @@ header {
 }
 
 .wrapper {
-  width: 420px;
+  position: relative;
+  height: 440px;
+  width: 400px;
   color: #ffff;
-  background-color: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(20px);
-  border-radius: 10px;
-  padding: 30px 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: height .2s ease;
+  transform: scale(0);
 }
 
-.wrapper h1 {
-  font-size: 36px;
+.wrapper.active {
+  height: 520px;
+}
+
+
+.wrapper.active .form-box.login {
+  transition: none;
+  transform: translateX(-400px);
+} 
+
+.wrapper .form-box{
+  width: 100%;
+  padding: 40px;
+}
+
+.wrapper .form-box.login {
+  transition: transform .18s ease;
+  transform: translateX(0);
+}
+
+.wrapper .form-box.register {
+  position: absolute;
+  transition: none;
+  transform: translateX(400px)
+}
+
+.wrapper.active .form-box.register {
+  transition: transfrom .18s ease;
+  transform: translateX(0);
+}
+
+.icon-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45px;
+  height: 45px;
+  background-color: #AC7B3F;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.wrapper .form-box h2 {
+  font-size: 2em;
   text-align: center;
 }
 
-.wrapper .input-box {
+.input-box {
+  position: relative;
   width: 100%;
   height: 50px;
   margin: 30px 0;
+  border-bottom: 2px solid #333;
+}
+
+.input-box label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  font-size: 1em;
+  color: #fff;
+  font-weight: 500;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label {
+  top: -5px;
 }
 
 .input-box input {
   width: 100%;
   height: 100%;
-  background-color: transparent;
+  background: transparent;
   border: none;
   outline: none;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 40px;
-  font-size: 16px;
+  font-size: 1em;
+  font-weight: 600;
   color: #ffff;
-  padding: 20px 45px 20px 20px;
+  padding: 0 35px 0 5px;
+}
+
+.input-box .icon {
+  position: absolute;
+  right: 8px;
+  font-size: 1.8em;
 }
 
 .input-box input::placeholder {
@@ -176,20 +254,22 @@ header {
   /* font-size: 20px; */
 }
 
-.wrapper .remember-forgot {
+.remember-forgot {
   display: flex;
   justify-content: space-between;
-  font-size: 14.5px;
+  font-size: .9em;
+  font-weight: 500;
   margin: -15px 0 15px;
+  
 }
 
 .remember-forgot label input {
-  color: #ffff;
+  accent-color: #AC7B3F;
   margin-right: 3px;
 }
 
 .remember-forgot a {
-  color: #ffff;
+  color: #AC7B3F;
   text-decoration: none;
 }
 
@@ -197,27 +277,37 @@ header {
   text-decoration: underline;
 }
 
-.wrapper .btn {
+.btn {
   width: 100%;
   height: 45px;
-  background-color: #ffff;
+  background-color: #AC7B3F;
   border: none;
   outline: none;
-  border-radius: 40px;
+  border-radius: 6px;
+  cursor: pointer;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-  font-size: 14.5;
-  color: #333;
+  font-size: 1em;
+  color: #fff;
   font-weight: 600;
 }
 
-.wrapper .register-link {
-  font-size: 14.5px;
+.login-register {
+  font-size: .9em;
+  color: #fff;
   text-align: center;
-  margin: 20px 0 15px;
+  font-weight: 500;
+  margin: 25px 0 10px;
 }
 
-.register-link p a {
-  color:#fff;
+.login-register p a {
+  color:#AC7B3F;
   text-decoration: none;
   font-weight: 600;
+  transition: .5s;
 }
+
+.login-register p a:hover {
+  text-decoration: underline;
+}
+
+

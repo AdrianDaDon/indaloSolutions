@@ -6,6 +6,7 @@
     <title>Indalo</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script type="module" src="js/register.js" defer></script>
 </head>
 <body>
     <!-- NAVIGATION BAR -->
@@ -35,13 +36,13 @@
             <form action="#">
                 <div class="input-box">
                     <span class="icon"><ion-icon name="mail"></ion-icon></span>
-                    <input type="email" required>
-                    <label >Email</label>
+                    <input type="email" id="email" required>
+                    <label>Email</label>
                 </div>
 
                 <div class="input-box">
                     <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                    <input type="password" required>
+                    <input type="password" id="password" required>
                     <label >Password</label>
                 </div>
 
@@ -53,7 +54,7 @@
                     <a href="#">Forgot Password?</a>
                 </div>
 
-                <button class="btn">Login</button>
+                <button class="btn" id="submit">Login</button>
 
                 <div class="login-register"><p>Don't have an account? <a href="#" class="register-link">Register</a></p></div>
             </form>
@@ -62,33 +63,34 @@
         <div class="form-box register">
             <h2>Registration</h2>
             <form action="#">
-                <div class="input-box">
-                    <span class="icon"><ion-icon name="person"></ion-icon></span>
-                    <input type="text" required>
-                    <label >Username</label>
-                </div>
-
+                
                 <div class="input-box">
                     <span class="icon"><ion-icon name="mail"></ion-icon></span>
-                    <input type="email" required>
+                    <input type="email" id="register-email" required>
                     <label >Email</label>
+                </div>
+                
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <input type="password" id="register-password" required>
+                    <label >Password</label>
                 </div>
 
                 <div class="input-box">
                     <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                    <input type="password" required>
-                    <label >Password</label>
+                    <input type="password" id="confirm-password" required>
+                    <label >Confirm Password</label>
                 </div>
 
                 <div class="remember-forgot">
                     <label >
-                        <input type="checkbox">
+                        <input type="checkbox" required>
                         I agree to the Terms & Conditions
                     </label>
 
                 </div>
 
-                <button class="btn">Register</button>
+                <button class="btn" id="register">Register</button>
 
                 <div class="login-register"><p>Already have an account? <a href="#" class="login-link">Login</a></p></div>
             </form>

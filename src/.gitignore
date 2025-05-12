@@ -1,8 +1,9 @@
 # Node modules (if using npm/yarn)
 node_modules/
 
-
+# config file
 config.js
+
 # Logs
 *.log
 

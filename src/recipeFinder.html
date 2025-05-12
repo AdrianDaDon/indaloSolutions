@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Finder</title>
+    <link rel="stylesheet" href="css/recipeStyle.css">
+  </head>
+  <body>
+    <div class="recipe-finder-container">
+      <h1>Prodect Details</h1>
+
+      <form id="search-form" class="search-box">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search item"
+          required
+        />
+
+        <button type="submit" id="search-button">Search</button>
+      </form>
+
+      <div class="message" id="message-area"></div>
+
+      <div class="result-grid" id="result-grid">
+        <div class="recipe-item">
+          <img
+            src="https://cdn.netflorist.co.za/layout/ResponsiveImages/409X522/NETCG13.jpg"
+            alt="carrot cake"
+          />
+          <h3>Carrot cake</h3>
+        </div>
+      </div>
+
+      <div class="modal-container hidden" id="recipe-model">
+        <div class="modal-content">
+          <button id="modal-close-btn" class="modal-close-btn">+</button>
+          <div id="recipe-details-content">
+            <!-- Details display -->
+            <h2>Carrot Cake</h2>
+            <img
+              src="https://cdn.netflorist.co.za/layout/ResponsiveImages/409X522/NETCG13.jpg"
+              alt="carrot cake"
+            />
+
+            <h3>Catergory:</h3>
+            <h3>Catergory:</h3>
+            <h3>Catergory:</h3>
+            <h3>Catergory:</h3>
+            <h3>Catergory:</h3>
+
+            <ul>
+              <li>450ml Vegable oil</li>
+              <li>400g Plain Flour</li>
+            </ul>
+
+            <h3>Instructions</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, unde?
+              Nihil repudiandae expedita, blanditiis aliquam quos ipsum eaque
+              sed minima dicta iste! Voluptatum numquam deleniti sequi inventore
+              quo, est quos?Lorem ipsum dolor sit amet, consectetur adipisicing
+              elit. Cum sint, numquam repudiandae ad nemo deleniti odit culpa
+              excepturi accusamus accusantium enim harum, esse sed hic maiores
+              qui velit consequuntur nesciunt.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

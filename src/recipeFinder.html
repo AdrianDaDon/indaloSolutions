@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipe Finder</title>
     <link rel="stylesheet" href="css/recipeStyle.css">
+    <script src="https://unkpg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
   </head>
   <body>
     <div class="recipe-finder-container">
@@ -21,16 +22,17 @@
         <button type="submit" id="search-button">Search</button>
       </form>
 
-      <div class="message" id="message-area"></div>
+      <div class="message" id="message-area">Search for a product</div>
 
-      <div class="result-grid" id="result-grid">
-        <div class="recipe-item">
+      <div class="results-grid" id="results-grid">
+        <!-- <div class="recipe-item">
           <img
             src="https://cdn.netflorist.co.za/layout/ResponsiveImages/409X522/NETCG13.jpg"
             alt="carrot cake"
           />
           <h3>Carrot cake</h3>
-        </div>
+        </div> -->
+
       </div>
 
       <div class="modal-container hidden" id="recipe-model">

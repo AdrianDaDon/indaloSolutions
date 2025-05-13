@@ -9,14 +9,14 @@ import {
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: window.env.API_KEY,
-    authDomain:  window.env.AUTH_DOMAIN,
-    projectId:  window.env.PROJECT_ID,
-    storageBucket: window.env.STOROAGE_BUCKET,
-    messagingSenderId:  window.env.MESSAGING_SENDER_ID,
-    appId:  window.env.APP_ID,
-    measurementId:  window.env.MEASUREMENT_ID,
-  };
+  apiKey: window.env.API_KEY,
+  authDomain: window.env.AUTH_DOMAIN,
+  projectId: window.env.PROJECT_ID,
+  storageBucket: window.env.STOROAGE_BUCKET,
+  messagingSenderId: window.env.MESSAGING_SENDER_ID,
+  appId: window.env.APP_ID,
+  measurementId: window.env.MEASUREMENT_ID,
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -35,8 +35,7 @@ loginBtn.addEventListener("click", (event) => {
       // Signed up
       const user = userCredential.user;
 
-      alert("Sigin Account---");
-      window.location.href = "location of the next page";
+      window.location.href = "./recipeFinder.html";
     })
     .catch((error) => {
       const errorCode = error.code;

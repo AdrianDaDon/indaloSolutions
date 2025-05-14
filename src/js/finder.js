@@ -4,6 +4,9 @@ const resultsGrid = document.getElementById("results-grid");
 const messageArea = document.getElementById("message-area");
 const placeholderImage =
   "https://furntech.org.za/wp-content/uploads/2017/05/placeholder-image.png";
+const modal = document.getElementById("recipe-model");
+const modalContent = document.getElementById("recipe-details-content");
+const modalCloseBtn = document.getElementById("modal-close-btn");
 
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -70,3 +73,33 @@ function displayProducts(products, name) {
     }
   });
 }
+
+function showModal() {
+  modal.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  modal.classList.add("hidden");
+  document.body.style.overflow = "";
+}
+
+resultsGrid.addEventListener("click", (e) => {
+  const card = e.target.closest(".recipe-item");
+
+  if (card) {
+    getRecipeDetails(123);
+  }
+});
+
+async function getRecipeDetails(id) {
+  showModal();
+}
+
+modalCloseBtn.addEventListener("click", closeModal);
+
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    closeModal();
+  }
+});

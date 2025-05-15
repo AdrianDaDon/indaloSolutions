@@ -4,20 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipe Finder</title>
-    <link rel="stylesheet" href="css/recipeStyle.css">
-    <script src="https://unkpg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
+    <link rel="stylesheet" href="css/recipeStyle.css" />
   </head>
   <body>
     <div class="recipe-finder-container">
-      <h1>Prodect Details</h1>
+      <h1>Product Details</h1>
 
       <form id="search-form" class="search-box">
-        <input
-          type="text"
-          id="search-input"
-          placeholder="Search item"
-          required
-        />
+        <input type="text" id="search-input" placeholder="Search item" />
 
         <button type="submit" id="search-button">Search</button>
       </form>
@@ -32,10 +26,9 @@
           />
           <h3>Carrot cake</h3>
         </div> -->
-
       </div>
 
-      <div class="modal-container hidden" id="recipe-model">
+      <div class="modal-container" id="recipe-model">
         <div class="modal-content">
           <button id="modal-close-btn" class="modal-close-btn">+</button>
           <div id="recipe-details-content">
@@ -71,5 +64,7 @@
         </div>
       </div>
     </div>
+
+    <script src="./js/finder.js"></script>
   </body>
 </html>

@@ -1,3 +1,4 @@
+const serpAPI = "https://serpapi.com/search.json?engine=google&q=";
 const searchForm = document.getElementById("search-form");
 const searchInput = document.getElementById("search-input");
 const resultsGrid = document.getElementById("results-grid");
@@ -65,6 +66,7 @@ function displayProducts(products, name) {
       product["categories"].toLowerCase().includes(name)
     ) {
       console.log(product.name);
+      recipeDiv.dataset.id = product["id"];
       recipeDiv.innerHTML = `
                 <img src="${placeholderImage}" alt="placeholder" loading="lazy"> 
                 <h3>${product.name}</h3>
@@ -88,12 +90,35 @@ resultsGrid.addEventListener("click", (e) => {
   const card = e.target.closest(".recipe-item");
 
   if (card) {
-    getRecipeDetails(123);
+    const productId = card.dataset.id;
+    getRecipeDetails(productId);
   }
 });
 
 async function getRecipeDetails(id) {
+  modalContent.innerHTML = "<p class='message loading'>Loading details</p>";
   showModal();
+
+  try {
+    const dataset = await fetch("./assets/ingredients.json")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          data.forEach((product) => {
+            if (product["id"] == id) {
+              displayProductDetails(product);
+            }
+          });
+          // displayProductDetails(data[""])
+        } else {
+          modalContent.innerHTML =
+            "<p class='message error'>Could not load product</p>";
+        }
+      });
+  } catch (error) {
+    modalContent.innerHTML =
+      "<p class='message error'>Failed to load product. Check your connection or try again later</p>";
+  }
 }
 
 modalCloseBtn.addEventListener("click", closeModal);
@@ -103,3 +128,21 @@ modal.addEventListener("click", (e) => {
     closeModal();
   }
 });
+
+async function displayProductDetails(product) {
+  const categoryHTML = `<h3>Category: ${product["categories"]}</h3>`;
+  const ingredientsHTML = `<h3>Ingredients: ${product["features.value"]}</h3>`;
+  const manufacturerHTML = `<h3>Manufacturer: ${product["manufacturer"]}</h3>`;
+  const manufacturerNoHTML = `<h3>Manufacturer Number: ${product["manufacturerNumber"]}</h3>`;
+  const brandHTML = `<h3>Brand: ${product["brand"]}</h3>`;
+
+  modalContent.innerHTML = `
+    <h2>${product["name"]}</h2>
+    <img src="${placeholderImage}" alt="placeholder" />
+    ${brandHTML}
+    ${ingredientsHTML}
+    ${manufacturerHTML}
+    ${manufacturerNoHTML}
+
+  `;
+}

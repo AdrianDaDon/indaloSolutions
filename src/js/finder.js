@@ -130,6 +130,12 @@ modal.addEventListener("click", (e) => {
 });
 
 async function displayProductDetails(product) {
+  const generatedImage = await fetch(`${serpAPI}${product["name"].replace(/ /g, '-')}`).then(
+    (response) => response.json()
+  );
+  then((data) => {
+    console.log(data);
+  });
   const categoryHTML = `<h3>Category: ${product["categories"]}</h3>`;
   const ingredientsHTML = `<h3>Ingredients: ${product["features.value"]}</h3>`;
   const manufacturerHTML = `<h3>Manufacturer: ${product["manufacturer"]}</h3>`;
@@ -139,10 +145,10 @@ async function displayProductDetails(product) {
   modalContent.innerHTML = `
     <h2>${product["name"]}</h2>
     <img src="${placeholderImage}" alt="placeholder" />
+    ${categoryHTML}
     ${brandHTML}
     ${ingredientsHTML}
     ${manufacturerHTML}
     ${manufacturerNoHTML}
-
   `;
 }

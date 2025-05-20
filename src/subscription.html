@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Subscription Plan</title>
+    <title>User Profile & Subscription</title>
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script>
       tailwind.config = {
@@ -40,351 +40,1018 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
     />
-    <link rel="stylesheet" href="css/realDeal.css" />
+    <style>
+      :where([class^="ri-"])::before {
+        content: "\f3c2";
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f9fafb;
+      }
+      .card-number-input {
+        background-image: none;
+      }
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+      .custom-checkbox {
+        position: relative;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+      }
+      .custom-checkbox input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        background-color: #fff;
+        border: 2px solid #d1d5db;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+      }
+      .custom-checkbox input:checked ~ .checkmark {
+        background-color: #4f46e5;
+        border-color: #4f46e5;
+      }
+      .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+      .custom-checkbox input:checked ~ .checkmark:after {
+        display: block;
+      }
+      .custom-checkbox .checkmark:after {
+        left: 6px;
+        top: 2px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+      .custom-switch {
+        position: relative;
+        display: inline-block;
+        width: 44px;
+        height: 24px;
+      }
+      .custom-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .switch-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #e5e7eb;
+        transition: 0.4s;
+        border-radius: 24px;
+      }
+      .switch-slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+      .custom-switch input:checked + .switch-slider {
+        background-color: #4f46e5;
+      }
+      .custom-switch input:checked + .switch-slider:before {
+        transform: translateX(20px);
+      }
+      .plan-card {
+        transition: all 0.3s ease;
+      }
+      .plan-card.selected {
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+      }
+    </style>
   </head>
   <body>
-        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="mb-8">
-                <h1 class="text-3xl font-bold text-gray-900">Account Settings</h1>
-                <p class="mt-2 text-gray-600">Manage subscription details</p>
+    <div class="min-h-screen">
+      <!-- Header -->
+      <header class="bg-white shadow-sm">
+        <div
+          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between"
+        >
+          <div class="flex items-center">
+            <h1 class="text-2xl font-['Pacifico'] text-primary">logo</h1>
+          </div>
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100"
+            >
+              <i class="ri-notification-3-line text-gray-600"></i>
             </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Sidebar Navigation -->
-                <div class="lg:col-span-1">
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <nav class="space-y-2">
- 
-                            <a href="#subscription" class="flex items-center px-4 py-3 bg-indigo-50 hover:bg-gray-50 rounded-lg text-primary">
-                                <div class="w-6 h-6 flex items-center justify-center mr-3">
-                                    <i class="ri-refresh-line"></i>
-                                </div>
-                                <span>Subscription</span>
-                            </a>
-                            <a href="#payment" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
-                                <div class="w-6 h-6 flex items-center justify-center mr-3">
-                                    <i class="ri-bank-card-line"></i>
-                                </div>
-                                <span>Payment Methods</span>
-                            </a>
-                            <a href="#billing" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
-                                <div class="w-6 h-6 flex items-center justify-center mr-3">
-                                    <i class="ri-bill-line"></i>
-                                </div>
-                                <span>Billing Address</span>
-                            </a>
-                            <a href="#security" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
-                                <div class="w-6 h-6 flex items-center justify-center mr-3">
-                                    <i class="ri-shield-keyhole-line"></i>
-                                </div>
-                                <span>Security</span>
-                            </a>
-                        </nav>
+            <div class="flex items-center">
+              <div
+                class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-medium"
+              >
+                JD
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+          <h1 class="text-3xl font-bold text-gray-900">Account Settings</h1>
+          <p class="mt-2 text-gray-600">
+            Manage your profile and subscription details
+          </p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Sidebar Navigation -->
+          <div class="lg:col-span-1">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+              <nav class="space-y-2">
+                <a
+                  href="#profile"
+                  class="flex items-center px-4 py-3 text-primary font-medium bg-primary/5 rounded-lg transition-all duration-300 ease-in-out relative"
+                >
+                  <div class="w-6 h-6 flex items-center justify-center mr-3">
+                    <i class="ri-user-line"></i>
+                  </div>
+                  <span>Profile</span>
+                </a>
+                <a
+                  href="#subscription"
+                  class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-all duration-300 ease-in-out"
+                >
+                  <div class="w-6 h-6 flex items-center justify-center mr-3">
+                    <i class="ri-refresh-line"></i>
+                  </div>
+                  <span>Subscription</span>
+                </a>
+                <a
+                  href="#payment"
+                  class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-all duration-300 ease-in-out"
+                >
+                  <div class="w-6 h-6 flex items-center justify-center mr-3">
+                    <i class="ri-bank-card-line"></i>
+                  </div>
+                  <span>Payment Methods</span>
+                </a>
+                <a
+                  href="#billing"
+                  class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-all duration-300 ease-in-out"
+                >
+                  <div class="w-6 h-6 flex items-center justify-center mr-3">
+                    <i class="ri-bill-line"></i>
+                  </div>
+                  <span>Billing Address</span>
+                </a>
+                <a
+                  href="#security"
+                  class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-all duration-300 ease-in-out"
+                >
+                  <div class="w-6 h-6 flex items-center justify-center mr-3">
+                    <i class="ri-shield-keyhole-line"></i>
+                  </div>
+                  <span>Security</span>
+                </a>
+              </nav>
+            </div>
+          </div>
+          <!-- Main Content -->
+          <div class="lg:col-span-2 space-y-8">
+            <!-- Profile Section -->
+            <section id="profile" class="bg-white rounded-lg shadow-sm p-6">
+              <h2 class="text-xl font-semibold text-gray-900 mb-6">
+                Profile Information
+              </h2>
+              <div
+                class="flex flex-col sm:flex-row items-start sm:items-center mb-8"
+              >
+                <div class="relative mr-6 mb-4 sm:mb-0">
+                  <div
+                    class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden"
+                  >
+                    <img
+                      src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20young%20business%20person%20with%20neutral%20expression%2C%20high%20quality%20portrait%20photo%2C%20soft%20lighting%2C%20clean%20background%2C%20professional%20appearance&width=200&height=200&seq=profile1&orientation=squarish"
+                      alt="Profile"
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                  <button
+                    class="absolute bottom-0 right-0 bg-primary text-white p-1.5 rounded-full shadow-md"
+                  >
+                    <div class="w-5 h-5 flex items-center justify-center">
+                      <i class="ri-camera-line"></i>
                     </div>
+                  </button>
                 </div>
-
-                <!-- Main Content -->
-                <div class="lg:col-span-2 space-y-8">
-
-                    
-                    <!-- Subscription Section -->
-                    <section id="subscription" class="bg-white rounded-lg shadow-sm p-6">
-                        <h2 class="text-xl font-semibold text-gray-900 mb-6">Subscription Plan</h2>
-                        
-                        <div class="mb-6">
-                            <div class="inline-flex p-1 bg-gray-100 rounded-full">
-                                <button class="px-4 py-2 bg-white text-gray-900 font-medium rounded-full shadow-sm whitespace-nowrap">Monthly</button>
-                                <button class="px-4 py-2 text-gray-600 font-medium rounded-full whitespace-nowrap">Yearly (Save 20%)</button>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                            <div class="plan-card border border-gray-200 rounded-lg p-5 hover:shadow-md">
-                                <div class="mb-4">
-                                    <h3 class="text-lg font-semibold text-gray-900">Premium</h3>
-                                    <div class="mt-2">
-                                        <span class="text-2xl font-bold text-gray-900">$19.99</span>
-                                        <span class="text-gray-500">/month</span>
-                                    </div>
-                                </div>
-                                <ul class="space-y-2 mb-6">
-                                    <li class="flex items-start">
-                                        <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2">
-                                            <i class="ri-check-line"></i>
-                                        </div>
-                                        <span class="text-sm text-gray-600">Core features</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2">
-                                            <i class="ri-check-line"></i>
-                                        </div>
-                                        <span class="text-sm text-gray-600">5 projects</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2">
-                                            <i class="ri-check-line"></i>
-                                        </div>
-                                        <span class="text-sm text-gray-600">Basic support</span>
-                                    </li>
-                                </ul>
-                                <button class="w-full px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-button hover:bg-gray-50 whitespace-nowrap">Select Plan</button>
-                            </div>
-                            
-                            <div class="plan-card border-2 border-primary rounded-lg p-5 relative selected">
-                                <div class="absolute -top-3 -right-3 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">Current</div>
-                                <div class="mb-4">
-                                    <h3 class="text-lg font-semibold text-gray-900">Basic</h3>
-                                    <div class="mt-2">
-                                        <span class="text-2xl font-bold text-gray-900">$9.99</span>
-                                        <span class="text-gray-500">/month</span>
-                                    </div>
-                                </div>
-                                <ul class="space-y-2 mb-6">
-                                    <li class="flex items-start">
-                                        <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2">
-                                            <i class="ri-check-line"></i>
-                                        </div>
-                                        <span class="text-sm text-gray-600">All Basic features</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2">
-                                            <i class="ri-check-line"></i>
-                                        </div>
-                                        <span class="text-sm text-gray-600">20 projects</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2">
-                                            <i class="ri-check-line"></i>
-                                        </div>
-                                        <span class="text-sm text-gray-600">Priority support</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2">
-                                            <i class="ri-check-line"></i>
-                                        </div>
-                                        <span class="text-sm text-gray-600">Advanced analytics</span>
-                                    </li>
-                                </ul>
-                                <button class="w-full px-4 py-2 bg-primary text-white font-medium rounded-button hover:bg-primary/90 whitespace-nowrap">Current Plan</button>
-                            </div>
-                            
-                            <div class="plan-card border border-gray-200 rounded-lg p-5 hover:shadow-md">
-                                <div class="mb-4">
-                                    <h3 class="text-lg font-semibold text-gray-900">Enterprise</h3>
-                                    <div class="mt-2">
-                                        <span class="text-2xl font-bold text-gray-900">$49.99</span>
-                                        <span class="text-gray-500">/month</span>
-                                    </div>
-                                </div>
-                                <ul class="space-y-2 mb-6">
-                                    <li class="flex items-start">
-                                        <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2">
-                                            <i class="ri-check-line"></i>
-                                        </div>
-                                        <span class="text-sm text-gray-600">All Premium features</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2">
-                                            <i class="ri-check-line"></i>
-                                        </div>
-                                        <span class="text-sm text-gray-600">Unlimited projects</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2">
-                                            <i class="ri-check-line"></i>
-                                        </div>
-                                        <span class="text-sm text-gray-600">24/7 dedicated support</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2">
-                                            <i class="ri-check-line"></i>
-                                        </div>
-                                        <span class="text-sm text-gray-600">Custom integrations</span>
-                                    </li>
-                                </ul>
-                                <button class="w-full px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-button hover:bg-gray-50 whitespace-nowrap">Select Plan</button>
-                            </div>
-                        </div>
-                        
-                        <div class="border-t border-gray-200 pt-6 flex justify-between items-center">
-                            <div>
-                                <p class="text-sm text-gray-600">Your Premium plan renews on <span class="font-medium">June 20, 2025</span></p>
-                            </div>
-                            <button class="text-red-600 text-sm font-medium hover:text-red-700 whitespace-nowrap">Cancel Subscription</button>
-                        </div>
-                    </section>
-                    
-                    <!-- Payment Methods Section -->
-                    <section id="payment" class="bg-white rounded-lg shadow-sm p-6">
-                        <h2 class="text-xl font-semibold text-gray-900 mb-6">Payment Methods</h2>
-                        
-                        <div class="mb-6">
-                            <div class="border border-gray-200 rounded-lg p-4 mb-4 flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <div class="w-12 h-8 flex items-center justify-center mr-4 text-blue-600">
-                                        <i class="ri-visa-fill ri-2x"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-900">Visa ending in 4242</p>
-                                        <p class="text-xs text-gray-500">Expires 09/2026</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center">
-                                    <span class="text-xs font-medium bg-green-100 text-green-800 px-2 py-1 rounded-full mr-3">Default</span>
-                                    <button class="text-gray-400 hover:text-gray-600">
-                                        <div class="w-6 h-6 flex items-center justify-center">
-                                            <i class="ri-more-2-fill"></i>
-                                        </div>
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div class="border border-gray-200 rounded-lg p-4 flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <div class="w-12 h-8 flex items-center justify-center mr-4 text-red-600">
-                                        <i class="ri-mastercard-fill ri-2x"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-900">Mastercard ending in 8790</p>
-                                        <p class="text-xs text-gray-500">Expires 05/2025</p>
-                                    </div>
-                                </div>
-                                <button class="text-gray-400 hover:text-gray-600">
-                                    <div class="w-6 h-6 flex items-center justify-center">
-                                        <i class="ri-more-2-fill"></i>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="border-t border-gray-200 pt-6">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Add New Payment Method</h3>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                                <div class="col-span-2">
-                                    <label for="cardName" class="block text-sm font-medium text-gray-700 mb-1">Cardholder Name</label>
-                                    <input type="text" id="cardName" placeholder="Name on card" class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
-                                </div>
-                                
-                                <div class="col-span-2">
-                                    <label for="cardNumber" class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
-                                    <div class="relative">
-                                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" class="w-full pl-4 pr-12 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary card-number-input">
-                                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 flex space-x-1">
-                                            <div class="w-6 h-6 flex items-center justify-center text-blue-600">
-                                                <i class="ri-visa-line"></i>
-                                            </div>
-                                            <div class="w-6 h-6 flex items-center justify-center text-red-600">
-                                                <i class="ri-mastercard-line"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <label for="expDate" class="block text-sm font-medium text-gray-700 mb-1">Expiration Date</label>
-                                    <input type="text" id="expDate" placeholder="MM/YY" maxlength="5" class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
-                                </div>
-                                
-                                <div>
-                                    <label for="cvv" class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
-                                    <div class="relative">
-                                        <input type="text" id="cvv" placeholder="123" maxlength="4" class="w-full pl-4 pr-10 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
-                                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
-                                            <div class="w-6 h-6 flex items-center justify-center text-gray-400">
-                                                <i class="ri-question-line"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center mb-6">
-                                <label class="custom-checkbox mr-2">
-                                    <input type="checkbox" checked>
-                                    <span class="checkmark"></span>
-                                </label>
-                                <span class="text-sm text-gray-700">Set as default payment method</span>
-                            </div>
-                            
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-4">
-                                    <div class="w-10 h-6 flex items-center justify-center text-blue-600">
-                                        <i class="ri-visa-fill ri-lg"></i>
-                                    </div>
-                                    <div class="w-10 h-6 flex items-center justify-center text-red-600">
-                                        <i class="ri-mastercard-fill ri-lg"></i>
-                                    </div>
-                                    <div class="w-10 h-6 flex items-center justify-center text-blue-800">
-                                        <i class="ri-paypal-fill ri-lg"></i>
-                                    </div>
-                                    <div class="w-10 h-6 flex items-center justify-center text-green-600">
-                                        <i class="ri-apple-fill ri-lg"></i>
-                                    </div>
-                                </div>
-                                
-                                <button class="px-6 py-2.5 bg-primary text-white font-medium rounded-button hover:bg-primary/90 whitespace-nowrap">Add Card</button>
-                            </div>
-                        </div>
-                    </section>
-                    
-                    <!-- Billing Address Section -->
-                    <section id="billing" class="bg-white rounded-lg shadow-sm p-6">
-                        <h2 class="text-xl font-semibold text-gray-900 mb-6">Billing Address</h2>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="col-span-2">
-                                <label for="addressLine1" class="block text-sm font-medium text-gray-700 mb-1">Address Line 1</label>
-                                <input type="text" id="addressLine1" class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
-                            </div>
-                            
-                            <div class="col-span-2">
-                                <label for="addressLine2" class="block text-sm font-medium text-gray-700 mb-1">Address Line 2 (Optional)</label>
-                                <input type="text" id="addressLine2" class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
-                            </div>
-                            
-                            <div>
-                                <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
-                                <input type="text" id="city"  class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
-                            </div>
-                            
-                            <div>
-                                <label for="state" class="block text-sm font-medium text-gray-700 mb-1">State / Province</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                        <div class="w-5 h-5 flex items-center justify-center text-gray-400">
-                                            <i class="ri-arrow-down-s-line"></i>
-                                        </div>
-                                    </div>
-                                    <input type="text" id="state"  class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary pr-8">
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <label for="zipCode" class="block text-sm font-medium text-gray-700 mb-1">ZIP / Postal Code</label>
-                                <input type="text" id="zipCode"  class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
-                            </div>
-                            
-                            <div>
-                                <label for="country" class="block text-sm font-medium text-gray-700 mb-1">Country</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                        <div class="w-5 h-5 flex items-center justify-center text-gray-400">
-                                            <i class="ri-arrow-down-s-line"></i>
-                                        </div>
-                                    </div>
-                                    <input type="text" id="country" value="United States" class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary pr-8">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-8 flex justify-end">
-                            <button class="px-6 py-2.5 bg-white border border-gray-300 text-gray-700 font-medium rounded-button hover:bg-gray-50 mr-3 whitespace-nowrap">Cancel</button>
-                            <button class="px-6 py-2.5 bg-primary text-white font-medium rounded-button hover:bg-primary/90 whitespace-nowrap">Save Address</button>
-                        </div>
-                    </section>
+                <div>
+                  <h3 class="text-lg font-medium text-gray-900">
+                    James Donovan
+                  </h3>
+                  <p class="text-gray-500">Premium Member since May 2024</p>
                 </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    for="fullName"
+                    class="block text-sm font-medium text-gray-700 mb-1"
+                    >Full Name</label
+                  >
+                  <input
+                    type="text"
+                    id="fullName"
+                    value="James Donovan"
+                    class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="email"
+                    class="block text-sm font-medium text-gray-700 mb-1"
+                    >Email Address</label
+                  >
+                  <input
+                    type="email"
+                    id="email"
+                    value="james.donovan@example.com"
+                    class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="phone"
+                    class="block text-sm font-medium text-gray-700 mb-1"
+                    >Phone Number</label
+                  >
+                  <input
+                    type="tel"
+                    id="phone"
+                    value="+1 (415) 555-7890"
+                    class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="location"
+                    class="block text-sm font-medium text-gray-700 mb-1"
+                    >Location</label
+                  >
+                  <input
+                    type="text"
+                    id="location"
+                    value="San Francisco, CA"
+                    class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  />
+                </div>
+              </div>
+              <div class="mt-6">
+                <label
+                  for="bio"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Bio</label
+                >
+                <textarea
+                  id="bio"
+                  rows="4"
+                  class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                >
+Product manager with 8+ years of experience in SaaS companies. Passionate about creating user-friendly solutions that solve real problems.</textarea
+                >
+              </div>
+              <div class="mt-8">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">
+                  Preferences
+                </h3>
+                <div class="space-y-4">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <h4 class="text-sm font-medium text-gray-900">
+                        Email Notifications
+                      </h4>
+                      <p class="text-xs text-gray-500">
+                        Receive email updates about your account
+                      </p>
+                    </div>
+                    <label class="custom-switch">
+                      <input type="checkbox" checked />
+                      <span class="switch-slider"></span>
+                    </label>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <h4 class="text-sm font-medium text-gray-900">
+                        Two-Factor Authentication
+                      </h4>
+                      <p class="text-xs text-gray-500">
+                        Add an extra layer of security to your account
+                      </p>
+                    </div>
+                    <label class="custom-switch">
+                      <input type="checkbox" checked />
+                      <span class="switch-slider"></span>
+                    </label>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <h4 class="text-sm font-medium text-gray-900">
+                        Dark Mode
+                      </h4>
+                      <p class="text-xs text-gray-500">
+                        Switch between light and dark themes
+                      </p>
+                    </div>
+                    <label class="custom-switch">
+                      <input type="checkbox" />
+                      <span class="switch-slider"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-8 flex justify-end">
+                <button
+                  class="px-6 py-2.5 bg-white border border-gray-300 text-gray-700 font-medium rounded-button hover:bg-gray-50 mr-3 whitespace-nowrap"
+                >
+                  Cancel
+                </button>
+                <button
+                  class="px-6 py-2.5 bg-primary text-white font-medium rounded-button hover:bg-primary/90 whitespace-nowrap"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </section>
+            <!-- Subscription Section -->
+            <section
+              id="subscription"
+              class="bg-white rounded-lg shadow-sm p-6"
+            >
+              <h2 class="text-xl font-semibold text-gray-900 mb-6">
+                Subscription Plan
+              </h2>
+              <div class="mb-6">
+                <div class="inline-flex p-1 bg-gray-100 rounded-full">
+                  <button
+                    class="px-4 py-2 bg-white text-gray-900 font-medium rounded-full shadow-sm whitespace-nowrap"
+                  >
+                    Monthly
+                  </button>
+                  <button
+                    class="px-4 py-2 text-gray-600 font-medium rounded-full whitespace-nowrap"
+                  >
+                    Yearly (Save 20%)
+                  </button>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div
+                  class="plan-card border border-gray-200 rounded-lg p-5 hover:shadow-md"
+                >
+                  <div class="mb-4">
+                    <h3 class="text-lg font-semibold text-gray-900">Basic</h3>
+                    <div class="mt-2">
+                      <span class="text-2xl font-bold text-gray-900"
+                        >$9.99</span
+                      >
+                      <span class="text-gray-500">/month</span>
+                    </div>
+                  </div>
+                  <ul class="space-y-2 mb-6">
+                    <li class="flex items-start">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2"
+                      >
+                        <i class="ri-check-line"></i>
+                      </div>
+                      <span class="text-sm text-gray-600">Core features</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2"
+                      >
+                        <i class="ri-check-line"></i>
+                      </div>
+                      <span class="text-sm text-gray-600">5 projects</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2"
+                      >
+                        <i class="ri-check-line"></i>
+                      </div>
+                      <span class="text-sm text-gray-600">Basic support</span>
+                    </li>
+                  </ul>
+                  <button
+                    class="w-full px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-button hover:bg-gray-50 whitespace-nowrap"
+                  >
+                    Select Plan
+                  </button>
+                </div>
+                <div
+                  class="plan-card border-2 border-primary rounded-lg p-5 relative selected"
+                >
+                  <div
+                    class="absolute -top-3 -right-3 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full"
+                  >
+                    Current
+                  </div>
+                  <div class="mb-4">
+                    <h3 class="text-lg font-semibold text-gray-900">Premium</h3>
+                    <div class="mt-2">
+                      <span class="text-2xl font-bold text-gray-900"
+                        >$19.99</span
+                      >
+                      <span class="text-gray-500">/month</span>
+                    </div>
+                  </div>
+                  <ul class="space-y-2 mb-6">
+                    <li class="flex items-start">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2"
+                      >
+                        <i class="ri-check-line"></i>
+                      </div>
+                      <span class="text-sm text-gray-600"
+                        >All Basic features</span
+                      >
+                    </li>
+                    <li class="flex items-start">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2"
+                      >
+                        <i class="ri-check-line"></i>
+                      </div>
+                      <span class="text-sm text-gray-600">20 projects</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2"
+                      >
+                        <i class="ri-check-line"></i>
+                      </div>
+                      <span class="text-sm text-gray-600"
+                        >Priority support</span
+                      >
+                    </li>
+                    <li class="flex items-start">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2"
+                      >
+                        <i class="ri-check-line"></i>
+                      </div>
+                      <span class="text-sm text-gray-600"
+                        >Advanced analytics</span
+                      >
+                    </li>
+                  </ul>
+                  <button
+                    class="w-full px-4 py-2 bg-primary text-white font-medium rounded-button hover:bg-primary/90 whitespace-nowrap"
+                  >
+                    Current Plan
+                  </button>
+                </div>
+                <div
+                  class="plan-card border border-gray-200 rounded-lg p-5 hover:shadow-md"
+                >
+                  <div class="mb-4">
+                    <h3 class="text-lg font-semibold text-gray-900">
+                      Enterprise
+                    </h3>
+                    <div class="mt-2">
+                      <span class="text-2xl font-bold text-gray-900"
+                        >$49.99</span
+                      >
+                      <span class="text-gray-500">/month</span>
+                    </div>
+                  </div>
+                  <ul class="space-y-2 mb-6">
+                    <li class="flex items-start">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2"
+                      >
+                        <i class="ri-check-line"></i>
+                      </div>
+                      <span class="text-sm text-gray-600"
+                        >All Premium features</span
+                      >
+                    </li>
+                    <li class="flex items-start">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2"
+                      >
+                        <i class="ri-check-line"></i>
+                      </div>
+                      <span class="text-sm text-gray-600"
+                        >Unlimited projects</span
+                      >
+                    </li>
+                    <li class="flex items-start">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2"
+                      >
+                        <i class="ri-check-line"></i>
+                      </div>
+                      <span class="text-sm text-gray-600"
+                        >24/7 dedicated support</span
+                      >
+                    </li>
+                    <li class="flex items-start">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center text-primary mt-0.5 mr-2"
+                      >
+                        <i class="ri-check-line"></i>
+                      </div>
+                      <span class="text-sm text-gray-600"
+                        >Custom integrations</span
+                      >
+                    </li>
+                  </ul>
+                  <button
+                    class="w-full px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-button hover:bg-gray-50 whitespace-nowrap"
+                  >
+                    Select Plan
+                  </button>
+                </div>
+              </div>
+              <div
+                class="border-t border-gray-200 pt-6 flex justify-between items-center"
+              >
+                <div>
+                  <p class="text-sm text-gray-600">
+                    Your Premium plan renews on
+                    <span class="font-medium">June 20, 2025</span>
+                  </p>
+                </div>
+                <button
+                  class="text-red-600 text-sm font-medium hover:text-red-700 whitespace-nowrap"
+                >
+                  Cancel Subscription
+                </button>
+              </div>
+            </section>
+            <!-- Payment Methods Section -->
+            <section id="payment" class="bg-white rounded-lg shadow-sm p-6">
+              <h2 class="text-xl font-semibold text-gray-900 mb-6">
+                Payment Methods
+              </h2>
+              <div class="mb-6">
+                <div
+                  class="border border-gray-200 rounded-lg p-4 mb-4 flex items-center justify-between"
+                >
+                  <div class="flex items-center">
+                    <div
+                      class="w-12 h-8 flex items-center justify-center mr-4 text-blue-600"
+                    >
+                      <i class="ri-visa-fill ri-2x"></i>
+                    </div>
+                    <div>
+                      <p class="text-sm font-medium text-gray-900">
+                        Visa ending in 4242
+                      </p>
+                      <p class="text-xs text-gray-500">Expires 09/2026</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center">
+                    <span
+                      class="text-xs font-medium bg-green-100 text-green-800 px-2 py-1 rounded-full mr-3"
+                      >Default</span
+                    >
+                    <button class="text-gray-400 hover:text-gray-600">
+                      <div class="w-6 h-6 flex items-center justify-center">
+                        <i class="ri-more-2-fill"></i>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="border border-gray-200 rounded-lg p-4 flex items-center justify-between"
+                >
+                  <div class="flex items-center">
+                    <div
+                      class="w-12 h-8 flex items-center justify-center mr-4 text-red-600"
+                    >
+                      <i class="ri-mastercard-fill ri-2x"></i>
+                    </div>
+                    <div>
+                      <p class="text-sm font-medium text-gray-900">
+                        Mastercard ending in 8790
+                      </p>
+                      <p class="text-xs text-gray-500">Expires 05/2025</p>
+                    </div>
+                  </div>
+                  <button class="text-gray-400 hover:text-gray-600">
+                    <div class="w-6 h-6 flex items-center justify-center">
+                      <i class="ri-more-2-fill"></i>
+                    </div>
+                  </button>
+                </div>
+              </div>
+              <div class="border-t border-gray-200 pt-6">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">
+                  Add New Payment Method
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div class="col-span-2">
+                    <label
+                      for="cardName"
+                      class="block text-sm font-medium text-gray-700 mb-1"
+                      >Cardholder Name</label
+                    >
+                    <input
+                      type="text"
+                      id="cardName"
+                      placeholder="Name on card"
+                      class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                    />
+                  </div>
+                  <div class="col-span-2">
+                    <label
+                      for="cardNumber"
+                      class="block text-sm font-medium text-gray-700 mb-1"
+                      >Card Number</label
+                    >
+                    <div class="relative">
+                      <input
+                        type="text"
+                        id="cardNumber"
+                        placeholder="1234 5678 9012 3456"
+                        maxlength="19"
+                        class="w-full pl-4 pr-12 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary card-number-input"
+                      />
+                      <div
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 flex space-x-1"
+                      >
+                        <div
+                          class="w-6 h-6 flex items-center justify-center text-blue-600"
+                        >
+                          <i class="ri-visa-line"></i>
+                        </div>
+                        <div
+                          class="w-6 h-6 flex items-center justify-center text-red-600"
+                        >
+                          <i class="ri-mastercard-line"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      for="expDate"
+                      class="block text-sm font-medium text-gray-700 mb-1"
+                      >Expiration Date</label
+                    >
+                    <input
+                      type="text"
+                      id="expDate"
+                      placeholder="MM/YY"
+                      maxlength="5"
+                      class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="cvv"
+                      class="block text-sm font-medium text-gray-700 mb-1"
+                      >CVV</label
+                    >
+                    <div class="relative">
+                      <input
+                        type="text"
+                        id="cvv"
+                        placeholder="123"
+                        maxlength="4"
+                        class="w-full pl-4 pr-10 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                      />
+                      <div
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2"
+                      >
+                        <div
+                          class="w-6 h-6 flex items-center justify-center text-gray-400"
+                        >
+                          <i class="ri-question-line"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center mb-6">
+                  <label class="custom-checkbox mr-2">
+                    <input type="checkbox" checked />
+                    <span class="checkmark"></span>
+                  </label>
+                  <span class="text-sm text-gray-700"
+                    >Set as default payment method</span
+                  >
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-4">
+                    <div
+                      class="w-10 h-6 flex items-center justify-center text-blue-600"
+                    >
+                      <i class="ri-visa-fill ri-lg"></i>
+                    </div>
+                    <div
+                      class="w-10 h-6 flex items-center justify-center text-red-600"
+                    >
+                      <i class="ri-mastercard-fill ri-lg"></i>
+                    </div>
+                    <div
+                      class="w-10 h-6 flex items-center justify-center text-blue-800"
+                    >
+                      <i class="ri-paypal-fill ri-lg"></i>
+                    </div>
+                    <div
+                      class="w-10 h-6 flex items-center justify-center text-green-600"
+                    >
+                      <i class="ri-apple-fill ri-lg"></i>
+                    </div>
+                  </div>
+                  <button
+                    class="px-6 py-2.5 bg-primary text-white font-medium rounded-button hover:bg-primary/90 whitespace-nowrap"
+                  >
+                    Add Card
+                  </button>
+                </div>
+              </div>
+            </section>
+            <!-- Billing Address Section -->
+            <section id="billing" class="bg-white rounded-lg shadow-sm p-6">
+              <h2 class="text-xl font-semibold text-gray-900 mb-6">
+                Billing Address
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="col-span-2">
+                  <label
+                    for="addressLine1"
+                    class="block text-sm font-medium text-gray-700 mb-1"
+                    >Address Line 1</label
+                  >
+                  <input
+                    type="text"
+                    id="addressLine1"
+                    value="123 Market Street"
+                    class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  />
+                </div>
+                <div class="col-span-2">
+                  <label
+                    for="addressLine2"
+                    class="block text-sm font-medium text-gray-700 mb-1"
+                    >Address Line 2 (Optional)</label
+                  >
+                  <input
+                    type="text"
+                    id="addressLine2"
+                    value="Apt 4B"
+                    class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="city"
+                    class="block text-sm font-medium text-gray-700 mb-1"
+                    >City</label
+                  >
+                  <input
+                    type="text"
+                    id="city"
+                    value="San Francisco"
+                    class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="state"
+                    class="block text-sm font-medium text-gray-700 mb-1"
+                    >State / Province</label
+                  >
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
+                    >
+                      <div
+                        class="w-5 h-5 flex items-center justify-center text-gray-400"
+                      >
+                        <i class="ri-arrow-down-s-line"></i>
+                      </div>
+                    </div>
+                    <input
+                      type="text"
+                      id="state"
+                      value="California"
+                      class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary pr-8"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label
+                    for="zipCode"
+                    class="block text-sm font-medium text-gray-700 mb-1"
+                    >ZIP / Postal Code</label
+                  >
+                  <input
+                    type="text"
+                    id="zipCode"
+                    value="94103"
+                    class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="country"
+                    class="block text-sm font-medium text-gray-700 mb-1"
+                    >Country</label
+                  >
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
+                    >
+                      <div
+                        class="w-5 h-5 flex items-center justify-center text-gray-400"
+                      >
+                        <i class="ri-arrow-down-s-line"></i>
+                      </div>
+                    </div>
+                    <input
+                      type="text"
+                      id="country"
+                      value="United States"
+                      class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary pr-8"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="mt-8 flex justify-end">
+                <button
+                  class="px-6 py-2.5 bg-white border border-gray-300 text-gray-700 font-medium rounded-button hover:bg-gray-50 mr-3 whitespace-nowrap"
+                >
+                  Cancel
+                </button>
+                <button
+                  class="px-6 py-2.5 bg-primary text-white font-medium rounded-button hover:bg-primary/90 whitespace-nowrap"
+                >
+                  Save Address
+                </button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </main>
+      <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+              <div class="flex items-center">
+                <div class="flex items-center space-x-2 text-gray-500 text-sm">
+                  <div class="w-5 h-5 flex items-center justify-center">
+                    <i class="ri-lock-line"></i>
+                  </div>
+                  <span>Secure payment processing</span>
+                </div>
+              </div>
             </div>
-        </main>
+            <div class="flex items-center space-x-6">
+              <div
+                class="w-8 h-5 flex items-center justify-center text-blue-600"
+              >
+                <i class="ri-visa-fill ri-lg"></i>
+              </div>
+              <div
+                class="w-8 h-5 flex items-center justify-center text-red-600"
+              >
+                <i class="ri-mastercard-fill ri-lg"></i>
+              </div>
+              <div
+                class="w-8 h-5 flex items-center justify-center text-blue-800"
+              >
+                <i class="ri-paypal-fill ri-lg"></i>
+              </div>
+              <div
+                class="w-8 h-5 flex items-center justify-center text-green-600"
+              >
+                <i class="ri-apple-fill ri-lg"></i>
+              </div>
+            </div>
+          </div>
+          <div
+            class="mt-8 pt-8 border-t border-gray-200 text-center text-sm text-gray-500"
+          >
+            <p>&copy; 2025 logo. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const navLinks = document.querySelectorAll("nav a");
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            navLinks.forEach((l) => {
+              l.classList.remove("text-primary", "font-medium", "bg-primary/5");
+              l.classList.add("text-gray-700");
+            });
+            this.classList.remove("text-gray-700");
+            this.classList.add("text-primary", "font-medium", "bg-primary/5");
+          });
+        });
+        const cardNumberInput = document.getElementById("cardNumber");
+        if (cardNumberInput) {
+          cardNumberInput.addEventListener("input", function (e) {
+            let value = e.target.value.replace(/\D/g, "");
+            let formattedValue = "";
+            for (let i = 0; i < value.length; i++) {
+              if (i > 0 && i % 4 === 0) {
+                formattedValue += " ";
+              }
+              formattedValue += value[i];
+            }
+            e.target.value = formattedValue;
+          });
+        }
+        // Expiration date formatting
+        const expDateInput = document.getElementById("expDate");
+        if (expDateInput) {
+          expDateInput.addEventListener("input", function (e) {
+            let value = e.target.value.replace(/\D/g, "");
+            if (value.length > 2) {
+              value = value.substring(0, 2) + "/" + value.substring(2);
+            }
+            e.target.value = value;
+          });
+        }
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        // Plan card selection
+        const planCards = document.querySelectorAll(".plan-card");
+        planCards.forEach((card) => {
+          card.addEventListener("click", function () {
+            // Don't allow deselecting the current plan
+            if (this.classList.contains("selected")) {
+              return;
+            }
+            // Remove selected class from all cards
+            planCards.forEach((c) => {
+              if (!c.querySelector(".absolute")) {
+                // Don't change the current plan
+                c.classList.remove("selected", "border-primary", "border-2");
+                c.classList.add("border-gray-200", "border");
+                const button = c.querySelector("button");
+                button.classList.remove(
+                  "bg-primary",
+                  "text-white",
+                  "hover:bg-primary/90"
+                );
+                button.classList.add(
+                  "border",
+                  "border-gray-300",
+                  "text-gray-700",
+                  "hover:bg-gray-50"
+                );
+                button.textContent = "Select Plan";
+              }
+            });
+            // Add selected class to clicked card if it's not the current plan
+            if (!this.querySelector(".absolute")) {
+              this.classList.add("selected", "border-primary", "border-2");
+              this.classList.remove("border-gray-200", "border");
+              const button = this.querySelector("button");
+              button.classList.add(
+                "bg-primary",
+                "text-white",
+                "hover:bg-primary/90"
+              );
+              button.classList.remove(
+                "border",
+                "border-gray-300",
+                "text-gray-700",
+                "hover:bg-gray-50"
+              );
+              button.textContent = "Selected";
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>

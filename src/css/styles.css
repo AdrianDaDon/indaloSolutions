@@ -12,6 +12,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+
   background: url("../assets/images/indaloBG.jpeg") no-repeat;
   /* background-color: black; */
   color: white;

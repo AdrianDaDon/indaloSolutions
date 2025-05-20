@@ -1,0 +1,127 @@
+@import url("https://fonts.google.com/css2?family=Poppins:wght!@300;400;500;600;700;800;900&display=swap");
+
+* {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+
+:root {
+  --dark-bg: #333;
+  --text-light: white;
+  --primaryColor: #ac7b3f;
+  --primaryDark: #a16721;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  --shadowDark: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+header {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 99;
+
+}
+
+.logo {
+  font-size: 2em;
+  color: #fff;
+  user-select: none;
+}
+
+.navigation a {
+  position: relative;
+  font-size: 1.1em;
+  color:#fff;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 40px;
+}
+
+.navigation a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color:#fff ;
+  border-radius: 5px;
+  left: 0;
+  bottom: -6px;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform .5s;
+}
+
+.navigation a:hover::after {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
+.navigation .btnLogin-popup {
+  width: 130px;
+  height: 50px;
+  background-color: transparent;
+  border: 2px solid #fff;
+  outline: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1em;
+  color:#fff;
+  font-weight: 500;
+  margin-left: 40px;
+  transition: .5s;
+}
+
+.navigation .btnLogin-popup:hover {
+  background-color: #fff;
+  color: #333;
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  height: 3px;
+  width: 25px;
+  background: #fff;
+  margin: 4px 0;
+  transition: .4s;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .navigation {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #333;
+    flex-direction: column;
+    width: 100%;
+    display: none;
+  }
+
+  .navigation.show {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .navigation a, .btnLogin-popup {
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+    border-top: 1px solid #444;
+  }
+}
